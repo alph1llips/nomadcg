@@ -69,7 +69,7 @@ function insertNewUser($conn, $email, $firstName, $lastName, $phone, $password)
     setcookie('lastName', $lastName, time() + (600 * 30),"/");
     setcookie('email', $email, time() + (600 * 30),"/");
     echo(json_encode($password));
-    header('Location: userAdded.php');
+    // header('Location: userAdded.php');
     $conn->close();
 }
 function encryptPassword($password){
