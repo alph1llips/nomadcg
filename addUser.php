@@ -53,6 +53,7 @@ function isDuplicateemail($conn, $email)
 
 function insertNewUser($conn, $email, $firstName, $lastName, $phone, $password)
 {
+    $password = encryptPassword($password);
     if (!isDuplicateemail($conn, $email)) {
         $timestamp = date("Y-m-d H:i:s");
         $sqlInsert = $conn->prepare("insert into nomadcg.users (firstName, lastName, 
@@ -64,7 +65,16 @@ function insertNewUser($conn, $email, $firstName, $lastName, $phone, $password)
     } else {
         echo("email already exist");
     }
-
+    setcookie('firstName',$firstName, time() + (600 * 30),"/");
+    setcookie('lastName', $lastName, time() + (600 * 30),"/");
+    setcookie('email', $email, time() + (600 * 30),"/");
+    echo(json_encode($password));
+    header('Location: userAdded.php');
     $conn->close();
+}
+function encryptPassword($password){
+    $salt = '$2a$07$thisisacustomestringforus$';
+    $hashPassword = md5($password); 
+    return $hashPassword;
 }
 ?>

@@ -8,4 +8,6 @@ if(crypt($password, $salt) == $hashed_password){
 }else{
     echo('This more to learn');
 }
+//password = password
+//email = test@gmail.com
 ?>
